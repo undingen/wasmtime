@@ -118,8 +118,10 @@ fn read_imports_and_exports(
                             let sig = &sigs[index as usize];
                             ExternType::ExternFunc(sig.clone())
                         }
-                        ImportSectionEntryType::Table(_tt) => {
-                            unimplemented!("ImportSectionEntryType::Table")
+                        ImportSectionEntryType::Table(tt) => {
+                            let table = into_table_type(tt);
+                            tables.push(table.clone());
+                            ExternType::ExternTable(table)
                         }
                         ImportSectionEntryType::Memory(mt) => {
                             let memory = into_memory_type(mt);
